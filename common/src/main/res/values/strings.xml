@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SportsNews</string>
+
+    //TopBarNavigation
+    <string name="top_bar_navigation_match">Match</string>
+    <string name="top_bar_navigation_news">News</string>
+    <string name="top_bar_navigation_notes">Notes</string>
+    <string name="top_bar_navigation_calendar">Calendar</string>
+    <string name="top_bar_navigation_interactive">Interactive</string>
+
+    //ScreenMatch
+    <string name="history">HISTORY</string>
+
+    //ContentDescriptions
+    <string name="content_description_match">Top bar icon match</string>
+    <string name="content_description_news">Top bar icon news</string>
+    <string name="content_description_notes">Top bar icon notes</string>
+    <string name="content_description_calendar">Top bar icon calendar</string>
+    <string name="content_description_interactive">Top bar icon interactive</string>
+    <string name="content_description_team_logo">Team logo</string>
+</resources>

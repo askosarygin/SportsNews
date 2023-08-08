@@ -1,4 +1,4 @@
-package com.ggc.sportsnews.ui.theme
+package com.ggc.common.theme
 
 import android.app.Activity
 import android.os.Build
