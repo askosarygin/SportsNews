@@ -9,7 +9,8 @@
     <string name="top_bar_navigation_interactive">Interactive</string>
 
     //ScreenMatch
-    <string name="history">HISTORY</string>
+    <string name="history_button">HISTORY</string>
+    <string name="history_header">History</string>
 
     //ContentDescriptions
     <string name="content_description_match">Top bar icon match</string>
@@ -18,4 +19,5 @@
     <string name="content_description_calendar">Top bar icon calendar</string>
     <string name="content_description_interactive">Top bar icon interactive</string>
     <string name="content_description_team_logo">Team logo</string>
+    <string name="content_description_back_button">Back button</string>
 </resources>

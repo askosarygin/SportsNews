@@ -31,7 +31,7 @@ import com.ggc.common.R.drawable.team_logo_test
 import com.ggc.common.R.font.font_inter_black
 import com.ggc.common.R.font.font_inter_regular
 import com.ggc.common.R.string.content_description_team_logo
-import com.ggc.common.R.string.history
+import com.ggc.common.R.string.history_button
 import com.ggc.common.entities.MatchInfo
 import com.ggc.common.theme.green
 import com.ggc.common.theme.green2
@@ -183,7 +183,7 @@ private fun TeamInfo(
             border = BorderStroke(width = 2.dp, color = green2)
         ) {
             AppText(
-                text = stringResource(id = history),
+                text = stringResource(id = history_button),
                 fontSize = 11.sp,
                 color = green,
                 font = font_inter_black
