@@ -41,6 +41,18 @@
     <string name="fouls_of_the_opponent">Fouls of the opponent</string>
     <string name="utility_factor">Utility factor</string>
 
+    //ScreenNotes
+    <string name="add">ADD</string>
+    <string name="create_note">Create note</string>
+    <string name="edit_note">Edit note</string>
+    <string name="title">Title</string>
+    <string name="note_title">Note title..</string>
+    <string name="text">Text</string>
+    <string name="note_text">Note text..</string>
+    <string name="edit">EDIT</string>
+    <string name="create">CREATE</string>
+    <string name="clear">CLEAR</string>
+
     //ContentDescriptions
     <string name="content_description_match">Top bar icon match</string>
     <string name="content_description_news">Top bar icon news</string>
@@ -50,4 +62,7 @@
     <string name="content_description_team_logo">Team logo</string>
     <string name="content_description_back_button">Back button</string>
     <string name="content_description_news_image">News image</string>
+    <string name="content_description_note_add">Add note</string>
+    <string name="content_description_note_edit">Edit note</string>
+    <string name="content_description_note_delete">Delete note</string>
 </resources>

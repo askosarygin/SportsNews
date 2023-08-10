@@ -110,42 +110,48 @@ fun ScreenMatch() {
 
 @Composable
 private fun MatchCard(
-    teamOneLogo: ImageBitmap,
+    teamOneLogo: ImageBitmap?,
     teamOneName: String,
     teamOneHistoryOnClick: () -> Unit,
-    teamTwoLogo: ImageBitmap,
+    teamTwoLogo: ImageBitmap?,
     teamTwoName: String,
     teamTwoHistoryOnClick: () -> Unit,
     date: String,
     time: String
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(intrinsicSize = IntrinsicSize.Max)
-            .background(color = white),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TeamInfo(
-            teamLogo = teamOneLogo,
-            teamName = teamOneName,
-            teamHistoryOnClick = teamOneHistoryOnClick
-        )
+    teamOneLogo?.let {
+        teamTwoLogo?.let {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(intrinsicSize = IntrinsicSize.Max)
+                    .background(color = white),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TeamInfo(
+                    teamLogo = teamOneLogo,
+                    teamName = teamOneName,
+                    teamHistoryOnClick = teamOneHistoryOnClick
+                )
 
-        Column(
-            modifier = Modifier.fillMaxHeight().padding(top = 45.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            AppText(text = date, fontSize = 15.sp, color = green, font = font_inter_regular)
-            AppText(text = time, fontSize = 15.sp, color = green, font = font_inter_regular)
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(top = 45.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    AppText(text = date, fontSize = 15.sp, color = green, font = font_inter_regular)
+                    AppText(text = time, fontSize = 15.sp, color = green, font = font_inter_regular)
+                }
+
+                TeamInfo(
+                    teamLogo = teamTwoLogo,
+                    teamName = teamTwoName,
+                    teamHistoryOnClick = teamTwoHistoryOnClick
+                )
+            }
         }
-
-        TeamInfo(
-            teamLogo = teamTwoLogo,
-            teamName = teamTwoName,
-            teamHistoryOnClick = teamTwoHistoryOnClick
-        )
     }
 }
 
