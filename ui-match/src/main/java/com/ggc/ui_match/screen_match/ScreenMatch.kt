@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ggc.common.AppTopBarNavigation
-import com.ggc.common.R.drawable.team_logo_test
+import com.ggc.common.R.drawable.test_team_logo
 import com.ggc.common.R.font.font_inter_black
 import com.ggc.common.R.font.font_inter_regular
 import com.ggc.common.R.string.content_description_team_logo
@@ -56,33 +56,33 @@ private fun Preview() {
 fun ScreenMatch() {
     val items = listOf(
         MatchInfo(
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 1",
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 2",
             "25.06.2022",
             "13:30"
         ),
         MatchInfo(
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 1",
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 2",
             "25.06.2022",
             "13:30"
         ),
         MatchInfo(
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 1",
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 2",
             "25.06.2022",
             "13:30"
         ),
         MatchInfo(
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 1",
-            ImageBitmap.imageResource(id = team_logo_test),
+            ImageBitmap.imageResource(id = test_team_logo),
             "Team 2",
             "25.06.2022",
             "13:30"

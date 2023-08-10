@@ -11,6 +11,35 @@
     //ScreenMatch
     <string name="history_button">HISTORY</string>
     <string name="history_header">History</string>
+    <string name="statistics_header">Statistics</string>
+    <string name="all">All</string>
+    <string name="amount">Amount</string>
+    <string name="average">Average</string>
+    <string name="matches_played">Matches played</string>
+    <string name="victory">Victory</string>
+    <string name="draws">Draws</string>
+    <string name="defeats">Defeats</string>
+    <string name="score_points">Score points</string>
+    <string name="goals_scored">Goals scored</string>
+    <string name="missed_goals">Missed goals</string>
+    <string name="ball_differential">Ball differential</string>
+    <string name="viewers">Viewers</string>
+    <string name="_2xPR">2x (P/R)</string>
+    <string name="_2xPercent">2x (%)</string>
+    <string name="_3xPR">3x (P/R)</string>
+    <string name="_3xPercent">3x (%)</string>
+    <string name="_1xPR">1x (P/R)</string>
+    <string name="_1xPercent">1x (%)</string>
+    <string name="pickings_attack">Pickings (attack)</string>
+    <string name="pickings_defence">Pickings (defense)</string>
+    <string name="selections_total">Selections (total)</string>
+    <string name="transmissions">Transmissions</string>
+    <string name="intercepts">Intercepts</string>
+    <string name="losses">Losses</string>
+    <string name="blockchain">Blockchain</string>
+    <string name="fouls">Fouls</string>
+    <string name="fouls_of_the_opponent">Fouls of the opponent</string>
+    <string name="utility_factor">Utility factor</string>
 
     //ContentDescriptions
     <string name="content_description_match">Top bar icon match</string>

@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 
 
@@ -16,13 +17,15 @@ fun AppText(
     text: String,
     fontSize: TextUnit,
     color: Color,
-    @FontRes font: Int
+    @FontRes font: Int,
+    textAlign: TextAlign? = null
 ) {
     Text(
         modifier = modifier,
         text = text,
         fontSize = fontSize,
         color = color,
-        fontFamily = FontFamily(Font(resId = font))
+        fontFamily = FontFamily(Font(resId = font)),
+        textAlign = textAlign
     )
 }
