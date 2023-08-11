@@ -53,6 +53,17 @@
     <string name="create">CREATE</string>
     <string name="clear">CLEAR</string>
 
+    //ScreenCalendar
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="apply">Apply</string>
+
+
     //ContentDescriptions
     <string name="content_description_match">Top bar icon match</string>
     <string name="content_description_news">Top bar icon news</string>
@@ -65,4 +76,6 @@
     <string name="content_description_note_add">Add note</string>
     <string name="content_description_note_edit">Edit note</string>
     <string name="content_description_note_delete">Delete note</string>
+    <string name="content_description_previous_month">Previous month</string>
+    <string name="content_description_next_month">Next month</string>
 </resources>
