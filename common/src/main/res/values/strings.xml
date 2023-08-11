@@ -78,4 +78,7 @@
     <string name="content_description_note_delete">Delete note</string>
     <string name="content_description_previous_month">Previous month</string>
     <string name="content_description_next_month">Next month</string>
+    <string name="content_description_game_field">Game field</string>
+    <string name="content_description_ball">Ball</string>
+    <string name="content_description_platform">Platform</string>
 </resources>
