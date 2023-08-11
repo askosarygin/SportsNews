@@ -55,13 +55,13 @@ private fun Preview() {
                 backButtonClicked = { /*TODO*/ }
             )
 
-            ScreenCreateNote()
+            ScreenEditNote()
         }
     }
 }
 
 @Composable
-fun ScreenCreateNote() {
+fun ScreenEditNote() {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {

@@ -25,7 +25,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ggc.common.theme.red
 import com.ggc.common.ui_elements.Grid
 import com.ggc.ui_interactive.screen_interactive.CellsNeighborhood.Direction.BOTTOM
@@ -41,8 +40,7 @@ import com.ggc.ui_interactive.screen_interactive.CellsNeighborhood.Direction.TOP
 
 @Composable
 fun ScreenInteractive1(
-    navController: NavController,
-    viewModel: ScreenGameViewModel
+    viewModel: ScreenInteractiveViewModel
 ) {
     val model by viewModel.model.collectAsState()
 
@@ -64,7 +62,7 @@ fun ScreenInteractive1(
                         .padding(start = 25.dp, end = 30.dp),
                 ) {
                     Grid(
-                        quantityCellsInWidth = ScreenGameViewModel.quantityCellsInWidth,
+                        quantityCellsInWidth = ScreenInteractiveViewModel.quantityCellsInWidth,
                         heightCoefficientRelativeToTheWidthCell = 0.7914f
                     ) {
                         model.cells.forEach { cell ->
@@ -73,7 +71,7 @@ fun ScreenInteractive1(
                     }
 
                     Grid(
-                        quantityCellsInWidth = ScreenGameViewModel.quantityCellsInWidth,
+                        quantityCellsInWidth = ScreenInteractiveViewModel.quantityCellsInWidth,
                         heightCoefficientRelativeToTheWidthCell = 0.7914f
                     ) {
                         val localDensity = LocalDensity.current

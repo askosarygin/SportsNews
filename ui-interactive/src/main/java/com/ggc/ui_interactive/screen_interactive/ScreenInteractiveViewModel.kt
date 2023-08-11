@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ScreenGameViewModel : SportsNewsViewModel<ScreenGameViewModel.Model>(Model()) {
+class ScreenInteractiveViewModel : SportsNewsViewModel<ScreenInteractiveViewModel.Model>(Model()) {
     private var selectedCellsCount = 0
     private var winCellsIndexes = mutableListOf<Int>()
     private var cellReplacementIsComing = false

@@ -40,12 +40,12 @@ private fun Preview() {
         calendarOnClick = { /*TODO*/ },
         interactiveOnClick = { /*TODO*/ }
     ) {
-        ScreenNews()
+        ScreenNewsList()
     }
 }
 
 @Composable
-fun ScreenNews() {
+fun ScreenNewsList() {
     val news = listOf(
         NewsInfo(
             id = 0L,
@@ -104,12 +104,14 @@ private fun NewsCard(
             .fillMaxWidth()
     )
     {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillWidth,
-            bitmap = newsInfo.newsImage,
-            contentDescription = stringResource(id = content_description_news_image)
-        )
+        newsInfo.newsImage?.let { newsImage ->
+            Image(
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillWidth,
+                bitmap = newsImage,
+                contentDescription = stringResource(id = content_description_news_image)
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()

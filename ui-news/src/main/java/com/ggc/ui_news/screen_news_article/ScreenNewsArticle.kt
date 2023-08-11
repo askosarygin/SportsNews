@@ -1,4 +1,4 @@
-package com.ggc.ui_news.screen_new_article
+package com.ggc.ui_news.screen_news_article
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
