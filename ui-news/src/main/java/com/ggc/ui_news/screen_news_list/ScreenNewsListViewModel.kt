@@ -1,34 +1,37 @@
-package com.ggc.ui_match.screen_match
+package com.ggc.ui_news.screen_news_list
 
 import androidx.lifecycle.viewModelScope
-import com.ggc.common.entities.MatchInfo
+import com.ggc.common.entities.NewsInfo
 import com.ggc.common.utils.SportsNewsViewModel
 import com.ggc.common.utils.SportsNewsViewModelSingleLifeEvent
 import com.ggc.domain.Interactor
-import com.ggc.ui_match.screen_match.ScreenMatchViewModel.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenHistory
+import com.ggc.ui_news.screen_news_list.ScreenNewsListViewModel.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenNewsArticle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ScreenMatchViewModel(
+class ScreenNewsListViewModel(
     private val interactor: Interactor
-) : SportsNewsViewModel<ScreenMatchViewModel.Model>(Model()) {
+) : SportsNewsViewModel<ScreenNewsListViewModel.Model>(Model()) {
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val matches = interactor.getAllMatches()
-            updateMatches(matches)
+            val news = interactor.getAllNews()
+            updateNews(news)
         }
     }
 
-    fun buttonHistoryPressed(teamId: Long) {
+    fun newsClicked(newsId: Long) {
         updateNavigationEvent(
             Model.NavigationSingleLifeEvent(
-                Model.NavigationSingleLifeEvent.NavigationInfo(ScreenHistory, teamId)
+                Model.NavigationSingleLifeEvent.NavigationInfo(
+                    ScreenNewsArticle,
+                    newsId
+                )
             )
         )
     }
 
     data class Model(
-        val matches: List<MatchInfo> = listOf(),
+        val news: List<NewsInfo> = listOf(),
         val navigationEvent: NavigationSingleLifeEvent? = null
     ) {
         class NavigationSingleLifeEvent(
@@ -38,17 +41,17 @@ class ScreenMatchViewModel(
         ) {
             data class NavigationInfo(
                 val navigateTo: NavigationDestination,
-                val selectedTeamId: Long
+                val selectedNewsId: Long
             )
 
             enum class NavigationDestination {
-                ScreenHistory
+                ScreenNewsArticle
             }
         }
     }
 
-    private fun updateMatches(matches: List<MatchInfo>) {
-        update { it.copy(matches = matches) }
+    private fun updateNews(news: List<NewsInfo>) {
+        update { it.copy(news = news) }
     }
 
     private fun updateNavigationEvent(navigationEvent: Model.NavigationSingleLifeEvent) {

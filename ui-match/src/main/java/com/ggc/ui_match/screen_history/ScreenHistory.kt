@@ -14,18 +14,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ggc.common.AppTopBarNavigation
-import com.ggc.common.R.drawable.test_team_logo
+import androidx.navigation.NavController
 import com.ggc.common.R.font.font_inter_regular
 import com.ggc.common.R.font.font_roboto_condensed_bold
 import com.ggc.common.R.font.font_roboto_condensed_regular
@@ -61,123 +60,60 @@ import com.ggc.common.R.string.utility_factor
 import com.ggc.common.R.string.victory
 import com.ggc.common.R.string.viewers
 import com.ggc.common.entities.TeamHistoryInfo
+import com.ggc.common.navigation.Routes
 import com.ggc.common.theme.green
 import com.ggc.common.theme.white
 import com.ggc.common.ui_elements.AppText
 import com.ggc.common.ui_elements.TopBarBackButton
+import com.ggc.ui_match.screen_history.ScreenHistoryViewModel.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenMatch
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
+//@Composable
+//private fun Preview() {
+//    AppTopBarNavigation(
+//        matchOnClick = { /*TODO*/ },
+//        newsOnClick = { /*TODO*/ },
+//        notesOnClick = { /*TODO*/ },
+//        calendarOnClick = { /*TODO*/ },
+//        interactiveOnClick = { /*TODO*/ }
+//    ) {
+//        Column {
+//            TopBarBackButton(
+//                headerName = stringResource(id = history_header),
+//                backButtonClicked = {/*todo*/ }
+//            )
+//
+//            ScreenHistory()
+//        }
+//    }
+//}
+
 @Composable
-private fun Preview() {
-    AppTopBarNavigation(
-        matchOnClick = { /*TODO*/ },
-        newsOnClick = { /*TODO*/ },
-        notesOnClick = { /*TODO*/ },
-        calendarOnClick = { /*TODO*/ },
-        interactiveOnClick = { /*TODO*/ }
-    ) {
-        Column {
-            TopBarBackButton(
-                headerName = stringResource(id = history_header),
-                backButtonClicked = {/*todo*/ }
-            )
+fun ScreenHistory(
+    navController: NavController,
+    viewModel: ScreenHistoryViewModel
+) {
+    val model by viewModel.model.collectAsState()
 
-            ScreenHistory()
+    model.navigationEvent?.use { route ->
+        when (route) {
+            ScreenMatch -> navController.navigate(Routes.ScreenMatch)
         }
     }
-}
 
-@Composable
-fun ScreenHistory() {
-    val teamHistoryInfo = TeamHistoryInfo(
-        teamLogo = ImageBitmap.imageResource(id = test_team_logo),
-        teamName = "Team 1",
-        matches = listOf(
-            TeamHistoryInfo.Match(
-                rivalLogo = ImageBitmap.imageResource(id = test_team_logo),
-                rivalName = "Team 2",
-                duration = "85:55",
-                date = "25.06.2022",
-                time = "13:30"
-            ),
-            TeamHistoryInfo.Match(
-                rivalLogo = ImageBitmap.imageResource(id = test_team_logo),
-                rivalName = "Team 2",
-                duration = "85:55",
-                date = "25.06.2022",
-                time = "13:30"
-            ),
-            TeamHistoryInfo.Match(
-                rivalLogo = ImageBitmap.imageResource(id = test_team_logo),
-                rivalName = "Team 2",
-                duration = "85:55",
-                date = "25.06.2022",
-                time = "13:30"
-            )
-        ),
-        statistics = TeamHistoryInfo.Statistics(
-            amount = TeamHistoryInfo.Statistics.Amount(
-                victory = "3",
-                draws = "0",
-                defeats = "1",
-                scorePoints = "7",
-                goalsScored = "309",
-                missedGoals = "268",
-                ballDifferential = "41",
-                viewers = "1189",
-                _2xPR = "92/184",
-                _3xPR = "32/86",
-                _1xPR = "29/37",
-                pickingsAttack = "37",
-                pickingsDefense = "108",
-                selectionsTotal = "145",
-                transmissions = "101",
-                intercepts = "44",
-                losses = "59",
-                blockchain = "14",
-                fouls = "61",
-                foulsOfTheOpponent = "0",
-                utilityFactor = "339"
-            ),
-            all = TeamHistoryInfo.Statistics.All(
-                matchesPlayed = "4",
-                _2xPercent = "50%",
-                _3xPercent = "37.2%",
-                _1xPercent = "78.4%"
-            ),
-            average = TeamHistoryInfo.Statistics.Average(
-                victory = "75%",
-                draws = "0%",
-                defeats = "25%",
-                scorePoints = "88%",
-                goalsScored = "77.25",
-                missedGoals = "67",
-                ballDifferential = "10.25",
-                viewers = "1189",
-                _2xPR = "23/46",
-                _3xPR = "8/22",
-                _1xPR = "7/9",
-                pickingsAttack = "9.3",
-                pickingsDefense = "27",
-                selectionsTotal = "36.3",
-                transmissions = "25.3",
-                intercepts = "11",
-                losses = "14.8",
-                blockchain = "3.5",
-                fouls = "15.3",
-                foulsOfTheOpponent = "0",
-                utilityFactor = "84.8"
-            )
-        )
-    )
     Column {
+        TopBarBackButton(
+            headerName = stringResource(id = history_header),
+            backButtonClicked = { viewModel.buttonBackPressed() }
+        )
+
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(space = 5.dp)
         ) {
-            items(items = teamHistoryInfo.matches) { match ->
+            items(items = model.teamHistoryInfo.matches) { match ->
                 TeamMatch(
-                    teamLogo = teamHistoryInfo.teamLogo,
-                    teamName = teamHistoryInfo.teamName,
+                    teamLogo = model.teamHistoryInfo.teamLogo,
+                    teamName = model.teamHistoryInfo.teamName,
                     rivalLogo = match.rivalLogo,
                     rivalName = match.rivalName,
                     duration = match.duration,
@@ -187,7 +123,7 @@ fun ScreenHistory() {
             }
         }
 
-        StatisticsCard(statistics = teamHistoryInfo.statistics)
+        StatisticsCard(statistics = model.teamHistoryInfo.statistics)
     }
 
 }

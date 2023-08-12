@@ -1,4 +1,4 @@
-package com.ggc.data.db
+package com.ggc.data.db.notes
 
 import com.ggc.common.entities.NoteDB
 

@@ -13,14 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ggc.common.AppTopBarNavigation
+import androidx.navigation.NavController
 import com.ggc.common.R.font.font_inter_black
 import com.ggc.common.R.font.font_inter_semi_bold
 import com.ggc.common.R.string.clear
@@ -30,6 +31,7 @@ import com.ggc.common.R.string.note_text
 import com.ggc.common.R.string.note_title
 import com.ggc.common.R.string.text
 import com.ggc.common.R.string.title
+import com.ggc.common.navigation.Routes
 import com.ggc.common.theme.green
 import com.ggc.common.theme.grey4
 import com.ggc.common.theme.white
@@ -37,69 +39,88 @@ import com.ggc.common.theme.whiteDark
 import com.ggc.common.theme.yellow
 import com.ggc.common.ui_elements.AppText
 import com.ggc.common.ui_elements.TopBarBackButton
+import com.ggc.ui_notes.screen_edit_note.ScreenEditNoteViewModel.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenNotes
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
+//@Composable
+//private fun Preview() {
+//
+//    AppTopBarNavigation(
+//        matchOnClick = { /*TODO*/ },
+//        newsOnClick = { /*TODO*/ },
+//        notesOnClick = { /*TODO*/ },
+//        calendarOnClick = { /*TODO*/ },
+//        interactiveOnClick = { /*TODO*/ }
+//    ) {
+//        Column {
+//            TopBarBackButton(
+//                headerName = stringResource(id = edit_note),
+//                backButtonClicked = { /*TODO*/ }
+//            )
+//
+//            ScreenEditNote()
+//        }
+//    }
+//}
+
 @Composable
-private fun Preview() {
+fun ScreenEditNote(
+    navController: NavController,
+    viewModel: ScreenEditNoteViewModel
+) {
+    val model by viewModel.model.collectAsState()
 
-    AppTopBarNavigation(
-        matchOnClick = { /*TODO*/ },
-        newsOnClick = { /*TODO*/ },
-        notesOnClick = { /*TODO*/ },
-        calendarOnClick = { /*TODO*/ },
-        interactiveOnClick = { /*TODO*/ }
-    ) {
-        Column {
-            TopBarBackButton(
-                headerName = stringResource(id = edit_note),
-                backButtonClicked = { /*TODO*/ }
-            )
-
-            ScreenEditNote()
+    model.navigationEvent?.use { route ->
+        when (route) {
+            ScreenNotes -> navController.navigate(Routes.ScreenNotes)
         }
     }
-}
 
-@Composable
-fun ScreenEditNote() {
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Box(
-            modifier = Modifier.weight(weight = 1f)
+    Column {
+        TopBarBackButton(
+            headerName = stringResource(id = edit_note),
+            backButtonClicked = { viewModel.buttonBackPressed() }
+        )
+
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Column {
-                TitleHeader()
-                TitleTextField(
-                    value = "",
-                    onValueChange = { /*TODO*/ }
+            Box(
+                modifier = Modifier.weight(weight = 1f)
+            ) {
+                Column {
+                    TitleHeader()
+                    TitleTextField(
+                        value = model.title,
+                        onValueChange = { viewModel.changeTitle(it) }
+                    )
+                    TextHeader()
+                    TextTextField(
+                        modifier = Modifier.weight(1f),
+                        value = model.text,
+                        onValueChange = { viewModel.changeText(it) }
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .padding(vertical = 25.dp, horizontal = 34.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(space = 50.dp)
+            ) {
+                ScreenNotesButton(
+                    modifier = Modifier.weight(weight = 1f),
+                    text = stringResource(id = edit),
+                    onClick = { viewModel.buttonEditPressed() }
                 )
-                TextHeader()
-                TextTextField(
-                    modifier = Modifier.weight(1f),
-                    value = "",
-                    onValueChange = { /*TODO*/ }
+                ScreenNotesButton(
+                    modifier = Modifier.weight(weight = 1f),
+                    text = stringResource(id = clear),
+                    onClick = { viewModel.buttonClearPressed() }
                 )
             }
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(vertical = 25.dp, horizontal = 34.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(space = 50.dp)
-        ) {
-            ScreenNotesButton(
-                modifier = Modifier.weight(weight = 1f),
-                text = stringResource(id = edit),
-                onClick = { /*TODO*/ }
-            )
-            ScreenNotesButton(
-                modifier = Modifier.weight(weight = 1f),
-                text = stringResource(id = clear),
-                onClick = { /*TODO*/ }
-            )
         }
     }
 }
@@ -159,12 +180,14 @@ private fun TitleTextField(
         singleLine = true,
         onValueChange = onValueChange,
         decorationBox = {
-            AppText(
-                text = stringResource(id = note_title),
-                fontSize = 11.sp,
-                color = grey4,
-                font = font_inter_semi_bold
-            )
+            if (value.isEmpty()) {
+                AppText(
+                    text = stringResource(id = note_title),
+                    fontSize = 11.sp,
+                    color = grey4,
+                    font = font_inter_semi_bold
+                )
+            }
             it()
         }
     )
@@ -200,12 +223,14 @@ private fun TextTextField(
         value = value,
         onValueChange = onValueChange,
         decorationBox = {
-            AppText(
-                text = stringResource(id = note_text),
-                fontSize = 11.sp,
-                color = grey4,
-                font = font_inter_semi_bold
-            )
+            if (value.isEmpty()) {
+                AppText(
+                    text = stringResource(id = note_text),
+                    fontSize = 11.sp,
+                    color = grey4,
+                    font = font_inter_semi_bold
+                )
+            }
             it()
         }
     )

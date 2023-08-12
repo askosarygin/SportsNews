@@ -17,14 +17,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ggc.common.AppTopBarNavigation
+import androidx.navigation.NavController
 import com.ggc.common.R.font.font_inter_extra_bold
 import com.ggc.common.R.font.font_inter_regular
 import com.ggc.common.R.string.add
@@ -32,6 +33,8 @@ import com.ggc.common.R.string.content_description_note_add
 import com.ggc.common.R.string.content_description_note_delete
 import com.ggc.common.R.string.content_description_note_edit
 import com.ggc.common.entities.Note
+import com.ggc.common.navigation.NavArgs
+import com.ggc.common.navigation.Routes
 import com.ggc.common.theme.green2
 import com.ggc.common.theme.red
 import com.ggc.common.theme.white
@@ -39,57 +42,54 @@ import com.ggc.common.ui_elements.AppText
 import com.ggc.ui_notes.R.drawable.icon_delete
 import com.ggc.ui_notes.R.drawable.icon_pencil
 import com.ggc.ui_notes.R.drawable.icon_plus
+import com.ggc.ui_notes.screen_notes.ScreenNotesViewModel.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenCreateNote
+import com.ggc.ui_notes.screen_notes.ScreenNotesViewModel.Model.NavigationSingleLifeEvent.NavigationDestination.ScreenEditNote
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
+//@Composable
+//private fun Preview() {
+//
+//    AppTopBarNavigation(
+//        matchOnClick = { /*TODO*/ },
+//        newsOnClick = { /*TODO*/ },
+//        notesOnClick = { /*TODO*/ },
+//        calendarOnClick = { /*TODO*/ },
+//        interactiveOnClick = { /*TODO*/ }
+//    ) {
+//        ScreenNotes()
+//    }
+//}
+
 @Composable
-private fun Preview() {
+fun ScreenNotes(
+    navController: NavController,
+    viewModel: ScreenNotesViewModel
+) {
+    val model by viewModel.model.collectAsState()
 
-    AppTopBarNavigation(
-        matchOnClick = { /*TODO*/ },
-        newsOnClick = { /*TODO*/ },
-        notesOnClick = { /*TODO*/ },
-        calendarOnClick = { /*TODO*/ },
-        interactiveOnClick = { /*TODO*/ }
-    ) {
-        ScreenNotes()
+    model.navigationEvent?.use { navigationInfo ->
+        when (navigationInfo.navigateTo) {
+            ScreenCreateNote -> navController.navigate(Routes.ScreenCreateNote)
+            ScreenEditNote -> {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    Routes.ScreenEditNote,
+                    NavArgs.ScreenEditNote(navigationInfo.selectedNoteId)
+                )
+                navController.navigate(Routes.ScreenEditNote)
+            }
+        }
     }
-}
-
-@Composable
-fun ScreenNotes() {
-    val notes = listOf(
-        Note(
-            id = 0L,
-            title = "Note tittle 1",
-            text = "I know I'm effective and I help the team succeed, I'm on the list of the best. I have enough experience and maturity to know that. Do I consider myself the best in the world? No. In my opinion, the best is someone who has gone all the way with their team and made them champions."
-        ),
-        Note(
-            id = 0L,
-            title = "Note tittle 1",
-            text = "I know I'm effective and I help the team succeed, I'm on the list of the best. I have enough experience and maturity to know that. Do I consider myself the best in the world? No. In my opinion, the best is someone who has gone all the way with their team and made them champions."
-        ),
-        Note(
-            id = 0L,
-            title = "Note tittle 1",
-            text = "I know I'm effective and I help the team succeed, I'm on the list of the best. I have enough experience and maturity to know that. Do I consider myself the best in the world? No. In my opinion, the best is someone who has gone all the way with their team and made them champions."
-        ),
-        Note(
-            id = 0L,
-            title = "Note tittle 1",
-            text = "I know I'm effective and I help the team succeed, I'm on the list of the best. I have enough experience and maturity to know that. Do I consider myself the best in the world? No. In my opinion, the best is someone who has gone all the way with their team and made them champions."
-        )
-    )
     Column(modifier = Modifier.fillMaxWidth()) {
-        ButtonAdd(onClick = { /*TODO*/ })
+        ButtonAdd(onClick = { viewModel.buttonCreateNotePressed() })
 
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(space = 5.dp)
         ) {
-            items(items = notes) { note ->
+            items(items = model.notes) { note ->
                 NoteCard(
                     note = note,
-                    editOnClick = { /*TODO*/ },
-                    deleteOnClick = { /*TODO*/ }
+                    editOnClick = { viewModel.buttonEditNotePressed(note.id) },
+                    deleteOnClick = { viewModel.buttonDeleteNotePressed(note.id) }
                 )
             }
         }

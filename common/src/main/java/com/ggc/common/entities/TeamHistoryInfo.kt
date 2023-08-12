@@ -3,6 +3,7 @@ package com.ggc.common.entities
 import androidx.compose.ui.graphics.ImageBitmap
 
 data class TeamHistoryInfo(
+    val teamId: Long = -1L,
     val teamLogo: ImageBitmap? = null,
     val teamName: String = "",
     val matches: List<Match> = listOf(),
