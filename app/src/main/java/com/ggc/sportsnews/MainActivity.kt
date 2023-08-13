@@ -10,7 +10,7 @@ import com.ggc.common.AppTopBarNavigation
 import com.ggc.common.navigation.NavArgs
 import com.ggc.common.navigation.Routes
 import com.ggc.ui_calendar.screen_calendar.ScreenCalendar
-import com.ggc.ui_interactive.screen_interactive.ScreenInteractive1
+import com.ggc.ui_interactive.screen_interactive.ScreenInteractive
 import com.ggc.ui_interactive.screen_interactive.ScreenInteractiveViewModel
 import com.ggc.ui_match.screen_history.ScreenHistory
 import com.ggc.ui_match.screen_history.ScreenHistoryViewModel
@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
                         ScreenCalendar()
                     }
                     composable(route = Routes.ScreenInteractive) {
-                        ScreenInteractive1(
+                        ScreenInteractive(
                             viewModel = ScreenInteractiveViewModel()
                         )
                     }

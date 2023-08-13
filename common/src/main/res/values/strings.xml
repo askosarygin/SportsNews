@@ -63,6 +63,9 @@
     <string name="sat">Sat</string>
     <string name="apply">Apply</string>
 
+    //ScreenInteractive
+    <string name="points">Points:</string>
+
 
     //ContentDescriptions
     <string name="content_description_match">Top bar icon match</string>

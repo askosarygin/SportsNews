@@ -4,6 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.ggc.common.utils.SportsNewsViewModel
 import com.ggc.common.utils.SportsNewsViewModelSingleLifeEvent
 import com.ggc.ui_interactive.R
+import com.ggc.ui_interactive.screen_interactive.game_staff.Cell
+import com.ggc.ui_interactive.screen_interactive.game_staff.CellsNeighborhood
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -66,7 +68,7 @@ class ScreenInteractiveViewModel : SportsNewsViewModel<ScreenInteractiveViewMode
 //                updateTargetPoints(model.value.targetPoints - winCellsIndexes.size)
 //            }
 
-            updateCount(model.value.count + winCellsIndexes.size)
+            updatePointsCount(model.value.pointsCount + winCellsIndexes.size)
 
             switchVisibilityForWinCells(
                 true,
@@ -330,7 +332,7 @@ class ScreenInteractiveViewModel : SportsNewsViewModel<ScreenInteractiveViewMode
 
     data class Model(
         val currentLevelIs: Int = 1,
-        val count: Int = 0,
+        val pointsCount: Int = 0,
         val cellClickEnabled: Boolean = true,
         val cells: List<Cell> = listOf(),
         val navigationEvent: NavigationSingleLifeEvent? = null
@@ -362,8 +364,8 @@ class ScreenInteractiveViewModel : SportsNewsViewModel<ScreenInteractiveViewMode
         }
     }
 
-    private fun updateCount(moveLimiterCount: Int) {
-        update { it.copy(count = moveLimiterCount) }
+    private fun updatePointsCount(pointsCount: Int) {
+        update { it.copy(pointsCount = pointsCount) }
     }
 
     private fun updateCells(cells: List<Cell>) {

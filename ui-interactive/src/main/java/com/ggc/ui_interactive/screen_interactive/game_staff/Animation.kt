@@ -1,4 +1,4 @@
-package com.ggc.ui_interactive.screen_interactive
+package com.ggc.ui_interactive.screen_interactive.game_staff
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.ggc.ui_interactive.screen_interactive.CellsNeighborhood.Direction.BOTTOM
-import com.ggc.ui_interactive.screen_interactive.CellsNeighborhood.Direction.LEFT
-import com.ggc.ui_interactive.screen_interactive.CellsNeighborhood.Direction.RIGHT
-import com.ggc.ui_interactive.screen_interactive.CellsNeighborhood.Direction.TOP
+import com.ggc.ui_interactive.screen_interactive.game_staff.CellsNeighborhood.Direction.BOTTOM
+import com.ggc.ui_interactive.screen_interactive.game_staff.CellsNeighborhood.Direction.LEFT
+import com.ggc.ui_interactive.screen_interactive.game_staff.CellsNeighborhood.Direction.RIGHT
+import com.ggc.ui_interactive.screen_interactive.game_staff.CellsNeighborhood.Direction.TOP
 
 @Composable
 fun AnimatedFade(

@@ -1,4 +1,4 @@
-package com.ggc.ui_interactive.screen_interactive
+package com.ggc.ui_interactive.screen_interactive.game_staff
 
 import androidx.annotation.DrawableRes
 
