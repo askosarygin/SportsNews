@@ -13,16 +13,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ggc.common.AppTopBarNavigation
 import com.ggc.common.R.font.font_inter_medium
 import com.ggc.common.R.font.font_inter_regular
 import com.ggc.common.R.string.apply
@@ -46,72 +46,25 @@ import com.ggc.common.ui_elements.Grid
 import com.ggc.ui_calendar.R.drawable.icon_calendar_arrow_left
 import com.ggc.ui_calendar.R.drawable.icon_calendar_arrow_right
 
-@Preview(showBackground = true)
-@Composable
-private fun Preview() {
-
-
-    AppTopBarNavigation(
-        matchOnClick = { /*TODO*/ },
-        newsOnClick = { /*TODO*/ },
-        notesOnClick = { /*TODO*/ },
-        calendarOnClick = { /*TODO*/ },
-        interactiveOnClick = { /*TODO*/ }
-    ) {
-        ScreenCalendar()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun Preview() {
+//    AppTopBarNavigation(
+//        matchOnClick = { /*TODO*/ },
+//        newsOnClick = { /*TODO*/ },
+//        notesOnClick = { /*TODO*/ },
+//        calendarOnClick = { /*TODO*/ },
+//        interactiveOnClick = { /*TODO*/ }
+//    ) {
+//        ScreenCalendar()
+//    }
+//}
 
 @Composable
-fun ScreenCalendar() {
-    val monthInfo = MonthInfo(
-        month = "December",
-        "2022",
-        dayCells = listOf(
-            MonthInfo.DayCell(id = 0),
-            MonthInfo.DayCell(id = 1),
-            MonthInfo.DayCell(id = 2),
-            MonthInfo.DayCell(id = 3),
-            MonthInfo.DayCell(id = 4, dayInfo = MonthInfo.DayCell.DayInfo("1")),
-            MonthInfo.DayCell(id = 5, dayInfo = MonthInfo.DayCell.DayInfo("2")),
-            MonthInfo.DayCell(id = 6, dayInfo = MonthInfo.DayCell.DayInfo("3")),
-            MonthInfo.DayCell(id = 7, dayInfo = MonthInfo.DayCell.DayInfo("4")),
-            MonthInfo.DayCell(id = 8, dayInfo = MonthInfo.DayCell.DayInfo("5")),
-            MonthInfo.DayCell(id = 9, dayInfo = MonthInfo.DayCell.DayInfo("6")),
-            MonthInfo.DayCell(id = 10, dayInfo = MonthInfo.DayCell.DayInfo("7")),
-            MonthInfo.DayCell(id = 11, dayInfo = MonthInfo.DayCell.DayInfo("8")),
-            MonthInfo.DayCell(id = 12, dayInfo = MonthInfo.DayCell.DayInfo("9")),
-            MonthInfo.DayCell(id = 13, dayInfo = MonthInfo.DayCell.DayInfo("10")),
-            MonthInfo.DayCell(id = 14, dayInfo = MonthInfo.DayCell.DayInfo("11")),
-            MonthInfo.DayCell(id = 15, dayInfo = MonthInfo.DayCell.DayInfo("12")),
-            MonthInfo.DayCell(id = 16, dayInfo = MonthInfo.DayCell.DayInfo("13")),
-            MonthInfo.DayCell(id = 17, dayInfo = MonthInfo.DayCell.DayInfo("14")),
-            MonthInfo.DayCell(id = 18, dayInfo = MonthInfo.DayCell.DayInfo("15")),
-            MonthInfo.DayCell(id = 19, dayInfo = MonthInfo.DayCell.DayInfo("16")),
-            MonthInfo.DayCell(id = 20, dayInfo = MonthInfo.DayCell.DayInfo("17")),
-            MonthInfo.DayCell(id = 21, dayInfo = MonthInfo.DayCell.DayInfo("18")),
-            MonthInfo.DayCell(id = 22, dayInfo = MonthInfo.DayCell.DayInfo("19")),
-            MonthInfo.DayCell(id = 23, dayInfo = MonthInfo.DayCell.DayInfo("20")),
-            MonthInfo.DayCell(id = 24, dayInfo = MonthInfo.DayCell.DayInfo("21")),
-            MonthInfo.DayCell(id = 25, dayInfo = MonthInfo.DayCell.DayInfo("22")),
-            MonthInfo.DayCell(id = 26, dayInfo = MonthInfo.DayCell.DayInfo("23")),
-            MonthInfo.DayCell(id = 27, dayInfo = MonthInfo.DayCell.DayInfo("24")),
-            MonthInfo.DayCell(id = 28, dayInfo = MonthInfo.DayCell.DayInfo("25")),
-            MonthInfo.DayCell(id = 29, dayInfo = MonthInfo.DayCell.DayInfo("26")),
-            MonthInfo.DayCell(id = 30, dayInfo = MonthInfo.DayCell.DayInfo("27")),
-            MonthInfo.DayCell(id = 31, dayInfo = MonthInfo.DayCell.DayInfo("28")),
-            MonthInfo.DayCell(id = 32, dayInfo = MonthInfo.DayCell.DayInfo("29")),
-            MonthInfo.DayCell(id = 33, dayInfo = MonthInfo.DayCell.DayInfo("30")),
-            MonthInfo.DayCell(id = 34),
-            MonthInfo.DayCell(id = 35),
-            MonthInfo.DayCell(id = 36),
-            MonthInfo.DayCell(id = 37),
-            MonthInfo.DayCell(id = 38),
-            MonthInfo.DayCell(id = 39),
-            MonthInfo.DayCell(id = 40),
-            MonthInfo.DayCell(id = 41)
-        )
-    )
+fun ScreenCalendar(
+    viewModel: ScreenCalendarViewModel
+) {
+    val model by viewModel.model.collectAsState()
 
     Box(
         modifier = Modifier
@@ -120,10 +73,10 @@ fun ScreenCalendar() {
         contentAlignment = Alignment.Center
     ) {
         Calendar(
-            monthInfo = monthInfo,
-            previousMonthOnClick = { /*TODO*/ },
-            nextMonthOnClick = { /*TODO*/ },
-            applyOnClick = { /*TODO*/ }
+            monthInfo = model.currentMonth,
+            previousMonthOnClick = { viewModel.buttonPreviousMonthPressed() },
+            nextMonthOnClick = { viewModel.buttonNextMonthPressed() },
+            applyOnClick = { viewModel.buttonApplyPressed() }
         )
     }
 }
@@ -144,8 +97,8 @@ private fun Calendar(
         CalendarHeader(
             month = monthInfo.month,
             year = monthInfo.year,
-            previousMonthOnClick = { /*TODO*/ },
-            nextMonthOnClick = { /*TODO*/ }
+            previousMonthOnClick = previousMonthOnClick,
+            nextMonthOnClick = nextMonthOnClick
         )
 
         CalendarBody(monthInfo = monthInfo)

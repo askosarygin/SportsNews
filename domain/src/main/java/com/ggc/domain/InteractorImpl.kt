@@ -1,6 +1,7 @@
 package com.ggc.domain
 
 import com.ggc.common.entities.MatchInfo
+import com.ggc.common.entities.MonthInfo
 import com.ggc.common.entities.NewsInfo
 import com.ggc.common.entities.Note
 import com.ggc.common.entities.TeamHistoryInfo
@@ -9,9 +10,11 @@ import com.ggc.domain.usecases.DeleteNoteByIdFromDBUseCase
 import com.ggc.domain.usecases.GetAllMatchesUseCase
 import com.ggc.domain.usecases.GetAllNewsUseCase
 import com.ggc.domain.usecases.GetAllNotesFromDBUseCase
+import com.ggc.domain.usecases.GetMonthInfoUseCase
 import com.ggc.domain.usecases.GetNewsByIdUseCase
 import com.ggc.domain.usecases.GetNoteByIdFromDBUseCase
 import com.ggc.domain.usecases.GetTeamHistoryInfoByIdUseCase
+import java.util.Calendar
 
 class InteractorImpl(
     private val addNoteToDBUseCase: AddNoteToDBUseCase,
@@ -21,7 +24,8 @@ class InteractorImpl(
     private val getAllMatchesUseCase: GetAllMatchesUseCase,
     private val getAllNewsUseCase: GetAllNewsUseCase,
     private val getNewsByIdUseCase: GetNewsByIdUseCase,
-    private val getTeamHistoryInfoByIdUseCase: GetTeamHistoryInfoByIdUseCase
+    private val getTeamHistoryInfoByIdUseCase: GetTeamHistoryInfoByIdUseCase,
+    private val getMonthInfoUseCase: GetMonthInfoUseCase
 ): Interactor {
     override suspend fun getAllNotes(): List<Note> {
         return getAllNotesFromDBUseCase.execute()
@@ -53,5 +57,9 @@ class InteractorImpl(
 
     override suspend fun getNewsById(id: Long): NewsInfo {
         return getNewsByIdUseCase.execute(id)
+    }
+
+    override suspend fun getMonthInfo(month: Calendar): MonthInfo {
+        return getMonthInfoUseCase.execute(month)
     }
 }

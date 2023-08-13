@@ -1,18 +1,22 @@
 package com.ggc.data
 
 import com.ggc.common.entities.MatchInfo
+import com.ggc.common.entities.MonthInfo
 import com.ggc.common.entities.NewsInfo
 import com.ggc.common.entities.NoteDB
 import com.ggc.common.entities.TeamHistoryInfo
 import com.ggc.data.appdata.AppData
+import com.ggc.data.db.calendar.MonthStorage
 import com.ggc.data.db.network.Network
 import com.ggc.data.db.notes.NotesDBStorage
 import com.ggc.domain.Repository
+import java.util.Calendar
 
 class RepositoryImpl(
     private val appData: AppData,
     private val notesDB: NotesDBStorage,
-    private val network: Network
+    private val network: Network,
+    private val monthStorage: MonthStorage
 ): Repository {
     override suspend fun getAllNotes(): List<NoteDB> {
         return notesDB.getAllNotes()
@@ -44,5 +48,9 @@ class RepositoryImpl(
 
     override suspend fun getNewsById(id: Long): NewsInfo {
         return network.getNewsById(id)
+    }
+
+    override suspend fun getMonthInfo(month: Calendar): MonthInfo {
+        return monthStorage.getMonthInfo(month)
     }
 }
