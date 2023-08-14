@@ -76,7 +76,8 @@ fun ScreenCalendar(
             monthInfo = model.currentMonth,
             previousMonthOnClick = { viewModel.buttonPreviousMonthPressed() },
             nextMonthOnClick = { viewModel.buttonNextMonthPressed() },
-            applyOnClick = { viewModel.buttonApplyPressed() }
+            applyOnClick = { viewModel.buttonApplyPressed() },
+            dayOnClick = { viewModel.dayClicked(it) }
         )
     }
 }
@@ -86,7 +87,8 @@ private fun Calendar(
     monthInfo: MonthInfo,
     previousMonthOnClick: () -> Unit,
     nextMonthOnClick: () -> Unit,
-    applyOnClick: () -> Unit
+    applyOnClick: () -> Unit,
+    dayOnClick: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -101,7 +103,10 @@ private fun Calendar(
             nextMonthOnClick = nextMonthOnClick
         )
 
-        CalendarBody(monthInfo = monthInfo)
+        CalendarBody(
+            monthInfo = monthInfo,
+            calendarCellOnLick = dayOnClick
+        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -130,7 +135,8 @@ private fun ButtonApply(
 
 @Composable
 private fun CalendarBody(
-    monthInfo: MonthInfo
+    monthInfo: MonthInfo,
+    calendarCellOnLick: (Int) -> Unit
 ) {
     Grid(
         quantityCellsInWidth = 7,
@@ -147,7 +153,9 @@ private fun CalendarBody(
         monthInfo.dayCells.forEach { dayCell ->
             CalendarCell(
                 dayCell = dayCell,
-                onClick = {/*todo*/ }
+                onClick = {
+                    calendarCellOnLick(dayCell.id)
+                }
             )
         }
     }
@@ -212,7 +220,7 @@ private fun CalendarCell(
     dayCell: MonthInfo.DayCell,
     onClick: () -> Unit
 ) {
-    Box {
+    Box(modifier = Modifier.clickable(onClick = onClick)) {
         dayCell.dayInfo?.let { dayInfo ->
             Box(
                 modifier = Modifier

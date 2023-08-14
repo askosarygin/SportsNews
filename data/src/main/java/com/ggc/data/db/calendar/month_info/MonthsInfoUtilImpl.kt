@@ -1,9 +1,9 @@
-package com.ggc.data.db.calendar
+package com.ggc.data.db.calendar.month_info
 
 import com.ggc.common.entities.MonthInfo
 import java.util.Calendar
 
-class MonthsStorageImpl : MonthStorage {
+class MonthsInfoUtilImpl : MonthInfoUtil {
     private suspend fun generateDayCellsForMonth(month: Calendar): List<MonthInfo.DayCell> {
         val result = mutableListOf<MonthInfo.DayCell>()
         val dayOfWeekNumber = month.get(Calendar.DAY_OF_WEEK) - 1
@@ -12,7 +12,7 @@ class MonthsStorageImpl : MonthStorage {
             result.add(MonthInfo.DayCell(id = i))
         }
 
-        val countOfDaysInMonth = month.getActualMaximum(Calendar.MONTH)
+        val countOfDaysInMonth = month.getActualMaximum(Calendar.DAY_OF_MONTH)
 
         for (i in dayOfWeekNumber until dayOfWeekNumber + countOfDaysInMonth) {
             result.add(

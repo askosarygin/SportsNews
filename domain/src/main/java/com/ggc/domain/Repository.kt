@@ -4,6 +4,7 @@ import com.ggc.common.entities.MatchInfo
 import com.ggc.common.entities.MonthInfo
 import com.ggc.common.entities.NewsInfo
 import com.ggc.common.entities.NoteDB
+import com.ggc.common.entities.SelectedInMonthDB
 import com.ggc.common.entities.TeamHistoryInfo
 import java.util.Calendar
 
@@ -25,4 +26,10 @@ interface Repository {
     suspend fun getNewsById(id: Long): NewsInfo
 
     suspend fun getMonthInfo(month: Calendar): MonthInfo
+
+    suspend fun addSelectedInMonth(selectedInMonthDB: SelectedInMonthDB): Boolean
+
+    suspend fun deleteSelectedMonth(): Boolean
+
+    suspend fun getSelectedInMonth(): SelectedInMonthDB
 }

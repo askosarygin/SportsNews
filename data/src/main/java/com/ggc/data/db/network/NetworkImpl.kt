@@ -1,17 +1,29 @@
 package com.ggc.data.db.network
 
+import android.content.res.Resources
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
-import com.bumptech.glide.RequestManager
+import androidx.compose.ui.res.imageResource
+import com.ggc.common.R.drawable.news_image_0
+import com.ggc.common.R.drawable.news_image_1
+import com.ggc.common.R.drawable.news_image_2
+import com.ggc.common.R.drawable.news_image_3
+import com.ggc.common.R.drawable.team_logo_boston_celtics
+import com.ggc.common.R.drawable.team_logo_brooklyn_nets
+import com.ggc.common.R.drawable.team_logo_chicago_bulls
+import com.ggc.common.R.drawable.team_logo_cleveland_cavaliers
+import com.ggc.common.R.drawable.team_logo_detroit_pistons
+import com.ggc.common.R.drawable.team_logo_indiana_pacers
+import com.ggc.common.R.drawable.team_logo_milwaukee_bucks
+import com.ggc.common.R.drawable.team_logo_new_york_knicks
+import com.ggc.common.R.drawable.team_logo_philadelphia_76_ers
+import com.ggc.common.R.drawable.team_logo_toronto_raptors
 import com.ggc.common.entities.MatchInfo
 import com.ggc.common.entities.NewsInfo
 import com.ggc.common.entities.TeamHistoryInfo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 class NetworkImpl(
-    private val loadBitmap: RequestManager
+    private val resources: Resources
 ) : Network {
     private var teamsLoaded: Boolean = false
     private lateinit var bostonCeltics: MatchInfo.TeamInfo
@@ -25,62 +37,56 @@ class NetworkImpl(
     private lateinit var milwaukeeBucks: MatchInfo.TeamInfo
     private lateinit var chicagoBulls: MatchInfo.TeamInfo
 
-    private suspend fun loadBitmapFromUrl(url: String): ImageBitmap {
-        return withContext(Dispatchers.IO) {
-            loadBitmap.asBitmap().load(url).submit().get()
-        }.asImageBitmap()
-    }
-
     private suspend fun loadAllTeams() {
         if (!teamsLoaded) {
             bostonCeltics = MatchInfo.TeamInfo(
                 teamId = 0L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-boston-celtics.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_boston_celtics),
                 teamName = "Boston Celtics"
             )
             netsBrooklyn = MatchInfo.TeamInfo(
                 teamId = 1L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-brooklyn-nets.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_brooklyn_nets),
                 teamName = "Nets Brooklyn"
             )
             newYorkKnicks = MatchInfo.TeamInfo(
                 teamId = 2L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-new-york-knicks.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_new_york_knicks),
                 teamName = "New-York Knicks"
             )
             torontoRaptors = MatchInfo.TeamInfo(
                 teamId = 3L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-toronto-raptors.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_toronto_raptors),
                 teamName = "Toronto Raptors"
             )
             philadelphia76ers = MatchInfo.TeamInfo(
                 teamId = 4L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-philadelphia-76-ers.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_philadelphia_76_ers),
                 teamName = "Philadelphia 76ers"
             )
             detroitPistons = MatchInfo.TeamInfo(
                 teamId = 5L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-detroit-pistons.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_detroit_pistons),
                 teamName = "Detroit Pistons"
             )
             indianaPacers = MatchInfo.TeamInfo(
                 teamId = 6L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-indiana-pacers.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_indiana_pacers),
                 teamName = "Indiana Pacers"
             )
             clevelandCavaliers = MatchInfo.TeamInfo(
                 teamId = 7L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-cleveland-cavaliers.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_cleveland_cavaliers),
                 teamName = "Cleveland Cavaliers"
             )
             milwaukeeBucks = MatchInfo.TeamInfo(
                 teamId = 8L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-milwaukee-bucks.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_milwaukee_bucks),
                 teamName = "Milwaukee Bucks"
             )
             chicagoBulls = MatchInfo.TeamInfo(
                 teamId = 9L,
-                teamLogo = loadBitmapFromUrl("https://фк-лого.рф/wp-content/uploads/nba-chicago-bulls.png"),
+                teamLogo = ImageBitmap.imageResource(resources, team_logo_chicago_bulls),
                 teamName = "Chicago Bulls"
             )
             teamsLoaded = true
@@ -1146,7 +1152,7 @@ class NetworkImpl(
         return listOf(
             NewsInfo(
                 id = 0L,
-                newsImage = loadBitmapFromUrl("https://static01.nyt.com/images/2023/08/02/multimedia/02nba-onpro-donations1-hfkz/02nba-onpro-donations1-hfkz-superJumbo.jpg"),
+                newsImage = ImageBitmap.imageResource(resources, news_image_0),
                 title = "The N.B.A. and Its Owners Fight for Change. But Not Necessarily the Same Change",
                 text = "In June 2022, on the same day the Supreme Court overturned Roe v. Wade, Adam Silver, the N.B.A. commissioner, released a statement jointly with the W.N.B.A.’s commissioner, Cathy Engelbert.\n" +
                         "\n" +
@@ -1163,7 +1169,7 @@ class NetworkImpl(
 
             NewsInfo(
                 id = 1L,
-                newsImage = loadBitmapFromUrl("https://static01.nyt.com/images/2023/07/08/multimedia/08nba-summer-wemby-mkcf/08nba-summer-wemby-mkcf-superJumbo.jpg"),
+                newsImage = ImageBitmap.imageResource(resources, news_image_1),
                 title = "Victor Wembanyama Gets Introduction to N.B.A. Fame and Game in Las Vegas",
                 text = "The walls around Victor Wembanyama, as he sat for a news conference Friday night at the Thomas and Mack Center, were plastered with images of past winners of the Las Vegas Summer League tournament. There were N.B.A. stars who played there in the early days of their careers and a photo of LeBron James from 2018, when he showed up wearing gold shorts that said “Lakers” on the front in his first public appearance after signing with the team.\n" +
                         "\n" +
@@ -1207,7 +1213,7 @@ class NetworkImpl(
             ),
             NewsInfo(
                 id = 2L,
-                newsImage = loadBitmapFromUrl("https://static01.nyt.com/images/2023/07/07/multimedia/07nba-bridges-contract-zlmh/07nba-bridges-contract-zlmh-superJumbo.jpg"),
+                newsImage = ImageBitmap.imageResource(resources, news_image_2),
                 title = "Miles Bridges Will Rejoin Hornets After Felony Domestic Violence Plea Deal",
                 text = "Miles Bridges will return to the Charlotte Hornets on a one-year contract next season after he finishes a suspension for pleading no contest to felony domestic violence.\n" +
                         "\n" +
@@ -1238,7 +1244,7 @@ class NetworkImpl(
             ),
             NewsInfo(
                 id = 3L,
-                newsImage = loadBitmapFromUrl("https://static01.nyt.com/images/2023/06/22/multimedia/22nba-trade-paul-jump-pbvl/22nba-trade-paul-jump-pbvl-superJumbo.jpg"),
+                newsImage = ImageBitmap.imageResource(resources, news_image_3),
                 title = "Chris Paul Headed to Golden State in Trade From Wizards",
                 text = "The Washington Wizards plan to trade Chris Paul to Golden State for guard Jordan Poole after reaching an agreement to acquire Paul from the Phoenix Suns earlier this week, according to a person familiar with the deals who was not authorized to discuss them publicly.\n" +
                         "\n" +
@@ -1265,7 +1271,7 @@ class NetworkImpl(
             it.id == id
         }?: NewsInfo(
             id = 0L,
-            newsImage = loadBitmapFromUrl("https://static01.nyt.com/images/2023/08/02/multimedia/02nba-onpro-donations1-hfkz/02nba-onpro-donations1-hfkz-superJumbo.jpg"),
+            newsImage = ImageBitmap.imageResource(resources, news_image_0),
             title = "The N.B.A. and Its Owners Fight for Change. But Not Necessarily the Same Change",
             text = "In June 2022, on the same day the Supreme Court overturned Roe v. Wade, Adam Silver, the N.B.A. commissioner, released a statement jointly with the W.N.B.A.’s commissioner, Cathy Engelbert.\n" +
                     "\n" +
